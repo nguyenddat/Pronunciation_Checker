@@ -25,5 +25,14 @@ def get_tts_model(language: str) -> nn.Module:
     if language not in {"de", "en"}:
         raise ValueError(f"Language {language} is not supported. Only 'de', 'en' are supported")
     
-
+    if language == 'de':
+        speaker = "thorsten_v2"
+    if language == "en":
+        speaker = "lj_16khz"
+    
+    model = torch.hub.load(repo_or_dir = "snakers4/silero-models",
+                           model = "silero_tts",
+                           language = language,
+                           speaker = speaker)
+    return model
     
